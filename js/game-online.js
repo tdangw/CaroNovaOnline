@@ -181,5 +181,6 @@ function inBounds(r, c) {
 }
 
 function generateRoomCode() {
-  return Math.random().toString(36).substring(2, 6).toUpperCase();
+  const chars = '0123456789';
+  return Array.from({ length: 4 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
 }
