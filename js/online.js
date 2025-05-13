@@ -16,7 +16,7 @@ let currentPlayerSymbol = ''; // 'X' hoặc 'O'
 
 export async function createRoom(callback) {
   roomId = genRoomCode();
-  const roomRef = doc(db, 'rooms', roomId);
+  const roomRef = doc(db, 'rooms_test', roomId);
   const board = Array(15)
     .fill(null)
     .map(() => Array(15).fill(''));
@@ -38,15 +38,15 @@ export async function createRoom(callback) {
 
 export async function joinRoom(inputRoomId, callback) {
   roomId = inputRoomId.toUpperCase();
-  const roomRef = doc(db, 'rooms', roomId);
-  const roomSnap = await getDoc(roomRef);
+  const roomRef = doc(db, 'rooms_test', roomId);
+  const rooms_testnap = await getDoc(roomRef);
 
-  if (!roomSnap.exists()) {
+  if (!rooms_testnap.exists()) {
     alert('Phòng không tồn tại');
     return;
   }
 
-  const data = roomSnap.data();
+  const data = rooms_testnap.data();
 
   if (!data.players.O) {
     await updateDoc(roomRef, {
@@ -62,7 +62,7 @@ export async function joinRoom(inputRoomId, callback) {
 }
 
 export async function sendMove(row, col, board, turn) {
-  const roomRef = doc(db, 'rooms', roomId);
+  const roomRef = doc(db, 'rooms_test', roomId);
   board[row][col] = turn;
 
   await updateDoc(roomRef, {
@@ -72,7 +72,7 @@ export async function sendMove(row, col, board, turn) {
 }
 
 export async function declareWinner(winner, winCells) {
-  const roomRef = doc(db, 'rooms', roomId);
+  const roomRef = doc(db, 'rooms_test', roomId);
   await updateDoc(roomRef, {
     winner,
     winCells,
@@ -80,7 +80,7 @@ export async function declareWinner(winner, winCells) {
 }
 
 export function listenToRoom(roomId) {
-  const roomRef = doc(db, 'rooms', roomId);
+  const roomRef = doc(db, 'rooms_test', roomId);
 
   onSnapshot(roomRef, (docSnap) => {
     if (!docSnap.exists()) return;
@@ -126,7 +126,7 @@ function updateWinner(winner, winCells) {
 }
 
 function genRoomCode() {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const chars = '0123456789';
   return Array.from({ length: 4 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
 }
 

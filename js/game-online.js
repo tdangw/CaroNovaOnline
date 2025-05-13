@@ -37,7 +37,7 @@ export function initOnlineGame() {
 }
 
 function createRoom(id) {
-  const ref = doc(db, 'rooms', id);
+  const ref = doc(db, 'rooms_test', id);
   const boardObj = {};
   for (let r = 0; r < boardSize; r++) {
     boardObj[r] = {};
@@ -57,7 +57,7 @@ function createRoom(id) {
 }
 
 function joinRoom(id) {
-  const ref = doc(db, 'rooms', id);
+  const ref = doc(db, 'rooms_test', id);
   getDoc(ref).then((snapshot) => {
     if (!snapshot.exists()) {
       alert('❌ Phòng không tồn tại!');
@@ -95,7 +95,7 @@ function handleCellClick(e) {
 }
 
 function updateRoomMove(row, col) {
-  const ref = doc(db, 'rooms', roomId);
+  const ref = doc(db, 'rooms_test', roomId);
   updateDoc(ref, {
     [`board.${row}.${col}`]: playerSymbol,
     turn: playerSymbol === 'X' ? 'O' : 'X',
@@ -111,7 +111,7 @@ function updateBoardUI(row, col, symbol) {
 }
 
 function listenToRoom(id) {
-  const ref = doc(db, 'rooms', id);
+  const ref = doc(db, 'rooms_test', id);
   onSnapshot(ref, (docSnap) => {
     const data = docSnap.data();
     if (!data) return;

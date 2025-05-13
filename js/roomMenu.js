@@ -78,7 +78,7 @@ async function updateRoom(board, turn, status) {
     }
   }
   const { db, doc, updateDoc } = await import('./firebase.js');
-  await updateDoc(doc(db, 'rooms', window.onlineRoomId), {
+  await updateDoc(doc(db, 'rooms_test', window.onlineRoomId), {
     board: flatBoard,
     turn,
     status,
